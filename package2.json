@@ -2,7 +2,7 @@
   "name": "eco-backend",
   "version": "1.0.0",
   "type": "module",
-  "main": "server.js",
+  "main": "server2.js",
   "scripts": {
     "start": "node server2.js"
   },
@@ -15,4 +15,3 @@
     "mongoose": "^7.0.0"
   }
 }
-
