@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eco Reward — SPA</title>
+  <link rel="stylesheet" href="style2.css">
+  <link rel="manifest" href="manifest2.json">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <img src="icons/icon-192.png" alt="logo" class="logo">
+        <div>
+          <h1>Eco Reward</h1>
+          <small>Do good. Earn points. Help the planet.</small>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn" data-target="home">Home</button>
+        <button class="nav-btn" data-target="earn">Earn</button>
+        <button class="nav-btn" data-target="rewards">Rewards</button>
+        <button class="nav-btn" data-target="games">Games</button>
+        <button class="nav-btn" data-target="account">Account</button>
+        <button class="nav-btn" data-target="leaderboard">Leaderboard</button>
+      </nav>
+      <div class="user-panel">
+        <div id="points-chip">0 pts</div>
+        <button id="btn-login" class="pill">Log in</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="page active">
+        <div class="hero">
+          <h2>Make small changes. Gain big impact.</h2>
+          <p>Track eco actions, play quick games, earn points and redeem rewards with local partners.</p>
+          <div class="hero-actions">
+            <button class="cta" data-target="earn">Start Earning</button>
+            <button class="cta alt" data-target="games">Play Games</button>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="card">
+            <h3>Track Actions</h3>
+            <p>Snap & log recycling, cycling, planting and more.</p>
+          </div>
+          <div class="card">
+            <h3>Fun Games</h3>
+            <p>Play short eco-games to get extra points.</p>
+          </div>
+          <div class="card">
+            <h3>Redeem</h3>
+            <p>Exchange points for coupons or donate to tree-planting.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EARN -->
+      <section id="earn" class="page">
+        <h2>Earn Points</h2>
+        <div class="grid">
+          <div class="action-card">
+            <h4>♻️ Recycled Plastic</h4>
+            <p>Take a photo of the recycled item and add a note.</p>
+            <button onclick="claimAction('Recycled Plastic', 10)">Claim +10</button>
+          </div>
+
+          <div class="action-card">
+            <h4>🚲 Used Bicycle</h4>
+            <p>Log a bicycle trip (or upload a screenshot from your ride app).</p>
+            <button onclick="claimAction('Used Bicycle', 20)">Claim +20</button>
+          </div>
+
+          <div class="action-card">
+            <h4>🌳 Planted a Tree</h4>
+            <p>Submit proof of planting (photo). High-value reward.</p>
+            <button onclick="claimAction('Planted a Tree', 100)">Claim +100</button>
+          </div>
+
+          <div class="action-card">
+            <h4>🛍️ Reused Bag</h4>
+            <p>Used reusable bag at a store.</p>
+            <button onclick="claimAction('Reused Bag', 5)">Claim +5</button>
+          </div>
+        </div>
+        <p class="help">Note: On a real app you would verify claims with photos, geolocation or partner QR — this demo accepts manual claims.</p>
+      </section>
+
+      <!-- REWARDS -->
+      <section id="rewards" class="page">
+        <h2>Rewards & Redemption</h2>
+        <div class="grid">
+          <div class="reward-card">
+            <h4>Eco Tote Bag</h4>
+            <p>Redeem for 50 points</p>
+            <button onclick="redeemReward('Eco Tote Bag', 50)">Redeem</button>
+          </div>
+          <div class="reward-card">
+            <h4>Seed Pack (x10)</h4>
+            <p>Redeem for 100 points</p>
+            <button onclick="redeemReward('Seed Pack', 100)">Redeem</button>
+          </div>
+          <div class="reward-card">
+            <h4>Donate: Plant a Tree</h4>
+            <p>Donate 200 points to plant a tree via our partner</p>
+            <button onclick="redeemReward('Plant a Tree (donation)', 200)">Donate</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAMES -->
+      <section id="games" class="page">
+        <h2>Games — earn bonus points</h2>
+        <div class="games-grid">
+          <div class="mini-game" id="quiz-game">
+            <h4>Eco Quiz</h4>
+            <p>Answer quick questions. +15 pts for correct.</p>
+            <button onclick="startQuiz()">Play Quiz</button>
+          </div>
+          <div class="mini-game" id="click-game">
+            <h4>Click Challenge</h4>
+            <p>Tap the button fast for 5 seconds. +10 pts if you reach target.</p>
+            <button onclick="startClickGame()">Start Click</button>
+          </div>
+          <div class="mini-game" id="memory-game">
+            <h4>Memory Match</h4>
+            <p>Match pairs of eco cards. +20 pts if complete.</p>
+            <button onclick="startMemoryGame()">Play Memory</button>
+          </div>
+        </div>
+
+        <div id="game-area" class="game-area"></div>
+      </section>
+
+      <!-- ACCOUNT -->
+      <section id="account" class="page">
+        <h2>My Account</h2>
+        <div class="account-grid">
+          <div class="account-card">
+            <h3 id="acc-name">Guest</h3>
+            <p id="acc-email">Not signed in</p>
+            <div class="points-big" id="acc-points">0 pts</div>
+          </div>
+          <div class="account-actions">
+            <h4>Actions</h4>
+            <button onclick="openLogin()">Login / Register</button>
+            <button onclick="saveProfile()">Save Profile</button>
+            <button onclick="exportData()">Export Data</button>
+            <button onclick="clearData()">Reset Demo Data</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEADERBOARD -->
+      <section id="leaderboard" class="page">
+        <h2>Leaderboard</h2>
+        <ol id="leader-list" class="leaderboard-list"></ol>
+      </section>
+    </main>
+
+    <footer>
+      <small>© 2025 Eco Reward — Demo PWA • Works offline • Local demo data</small>
+    </footer>
+  </div>
+
+  <!-- Modal: Login/Register -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-inner">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3 id="modal-title">Sign in / Register</h3>
+
+      <div class="form">
+        <input id="in-name" placeholder="Name (for register)" />
+        <input id="in-email" placeholder="Email" />
+        <input id="in-pass" type="password" placeholder="Password" />
+        <div class="modal-buttons">
+          <button onclick="doRegister()">Register</button>
+          <button onclick="doLogin()">Login</button>
+        </div>
+        <p id="modal-msg" class="muted"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app2.js" defer></script>
+  <script>
+    // register service worker for PWA (works on localhost or https)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker2.js').then(()=>console.log('SW registered')).catch(()=>{/*ignore*/});
+    }
+  </script>
+</body>
+</html>
